@@ -50,21 +50,25 @@
     <body>
     <div id="nav">
         <ul class="options">
-            <li class="header" data-i18n="menu.options"></li>
-            <li id="mode-aiken-gift" style="display:block">
+            <li class="header" data-i18n="menu.options" style="font-size: 16pt; color: #0063b1; margin-bottom: 16px;"></li>
+
+            <li id="mode-aiken-gift" style="display:block; margin-bottom: 16px;">
                 <label for="mode" data-i18n="menu.mode.label"></label>
                 <select id="mode" onchange="changeMode()">
                     <option value="aiken" data-i18n="menu.mode.aiken"></option>
                     <option value="gift" data-i18n="menu.mode.gift"></option>
                 </select>
             </li>
-            <li>
-                <input type="checkbox" id="autocomplete" checked="checked" onchange="autocompleteChanged()">
-                <label for="autocomplete" data-i18n="menu.autocomplete"></label>
-            </li>
-            <li>
-                <button onclick="saveTofile()" data-i18n="menu.save-to-file"></button>
-            </li>
+
+        </li>
+        <li style="margin-bottom: 32px;">
+            <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px;"></label>
+            <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()"></fluent-switch>
+        </li>
+        <li style="margin-bottom: 16px;">Accanto, è possibile inserire le domande seguendo il formato indicato. <br><br>Verificare che non ci siano errori prima di procedere con il download del database</li>
+        <li style="margin-bottom: 16px;">
+            <fluent-button appearance="accent" onclick="saveTofile()" data-i18n="menu.save-to-file" ></fluent-button>
+        </li>
         </ul>
     </div>
     
@@ -147,5 +151,9 @@ ANSWER: A</div>
             editor.setOption("mode", mode);
         }
     
+    </script>
+    <script type="module">
+        import { fluentToolbar, fluentButton, provideFluentDesignSystem } from "https://unpkg.com/@fluentui/web-components@2.0.0";
+        provideFluentDesignSystem().register(fluentToolbar(), fluentButton());
     </script>
     </body></html>
