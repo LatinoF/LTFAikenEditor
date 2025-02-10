@@ -79,9 +79,9 @@
             </li>
 
         </li>
-        <li style="margin-bottom: 32px;">
-            <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px; display: inline-block; vertical-align: middle;"></label>
-            <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()" style="display: inline-block; vertical-align: middle;"></fluent-switch>
+        <li>
+            <label for="autocomplete" data-i18n="menu.autocomplete"></label>
+            <input type="checkbox" id="autocomplete" checked="checked" onchange="autocompleteChanged()">
         </li>
         
         <fluent-divider style="margin-bottom: 32px;"></fluent-divider>
@@ -124,7 +124,7 @@ ANSWER: A</div>
                 $('body').localize();
             });
     
-        var sc = document.getElementById("aikenexample");
+            var sc = document.getElementById("aikenexample");
         var code = document.getElementById("code");
         var editor = CodeMirror(code, {
             value: (sc.textContent || sc.innerText || sc.innerHTML),
@@ -135,10 +135,31 @@ ANSWER: A</div>
             gutters: ["CodeMirror-lint-markers"],
             aikenAutocomplete: document.getElementById("autocomplete").checked
         });
+
+        function setLanguage(language) {
+            document.getElementById("lang-en").classList.remove("selected-language");
+            document.getElementById("lang-it").classList.remove("selected-language");
+            i18next.changeLanguage(language, function(err, t) {
+                if (err) return console.log('Error loading language', err);
+                $('body').localize();
+            });
+            if (language === 'en') {
+                document.getElementById("lang-en").classList.add("selected-language");
+            } else if (language === 'it') {
+                document.getElementById("lang-it").classList.add("selected-language");
+            }
+        }
+    
+        window.onload = function() {
+            var userLang = i18next.language || navigator.language || navigator.userLanguage;
+            setLanguage(userLang.startsWith('it') ? 'it' : 'en');
+        };
     
         function autocompleteChanged() {
             editor.setOption("aikenAutocomplete", document.getElementById("autocomplete").checked);
         }
+
+       
     
         function saveTofile() {
             let textToWrite = editor.getValue().replace(/\n/g, "\r\n").trim();
@@ -171,25 +192,7 @@ ANSWER: A</div>
             var mode = getMode();
             editor.setOption("mode", mode);
         }
-    
-        function setLanguage(language) {
-            document.getElementById("lang-en").classList.remove("selected-language");
-            document.getElementById("lang-it").classList.remove("selected-language");
-            i18next.changeLanguage(language, function(err, t) {
-                if (err) return console.log('Error loading language', err);
-                $('body').localize();
-            });
-            if (language === 'en') {
-                document.getElementById("lang-en").classList.add("selected-language");
-            } else if (language === 'it') {
-                document.getElementById("lang-it").classList.add("selected-language");
-            }
-        }
-    
-        window.onload = function() {
-            var userLang = i18next.language || navigator.language || navigator.userLanguage;
-            setLanguage(userLang.startsWith('it') ? 'it' : 'en');
-        };
+        
     </script>
     
     
