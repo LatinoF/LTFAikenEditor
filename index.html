@@ -59,10 +59,9 @@
         <ul class="options">
             <li class="header" data-i18n="menu.options" style="font-size: 16pt; color: #0063b1; margin-bottom: 16px;"></li>
 
-            <li class="" data-i18n="menu.language"></li>
-
             <li style="margin-bottom: 16px;">
-                <div id="lang-en" class="language-option" onclick="setLanguage('en')">
+                <label for="mode" data-i18n="menu.language" style="margin-right: 8px; display: inline-block; vertical-align: middle;"></label>
+                <div id="lang-en" class="language-option" onclick="setLanguage('en')"> 
                     <img src="https://img.icons8.com/?size=48&id=ShNNs7i8tXQF&format=png">English
                 </div>
                 <div id="lang-it" class="language-option" onclick="setLanguage('it')" >
@@ -81,11 +80,13 @@
 
         </li>
         <li style="margin-bottom: 32px;">
-            <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px;"></label>
-            <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()"></fluent-switch>
+            <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px; display: inline-block; vertical-align: middle;"></label>
+            <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()" style="display: inline-block; vertical-align: middle;"></fluent-switch>
         </li>
+        
         <fluent-divider style="margin-bottom: 32px;"></fluent-divider>
-        <li style="margin-bottom: 16px;">Accanto, è possibile inserire<br>le domande seguendo il formato indicato.<br><br>Verificare che non ci siano errori<br>prima di procedere con il download</li>
+        <li style="margin-bottom: 16px; max-width: 320px; text-align: right; margin-left: auto;" data-i18n="menu.desc1"></li>
+        <li style="margin-bottom: 16px; max-width: 320px; text-align: right; margin-left: auto;" data-i18n="menu.desc2"></li>
         <li style="margin-bottom: 16px;">
             <fluent-button appearance="accent" onclick="saveTofile()" data-i18n="menu.save-to-file" ></fluent-button>
         </li>
@@ -95,17 +96,17 @@
     <article>
         <div id="code"></div>
         <div id="aikenexample" style="display:none">Qual è la risposta corretta a questa domanda?
-A. È questa?
-B. Forse questa risposta?
-C. Possibilmente questa?
-D. Deve essere questa!
+A) È questa?
+B) Forse questa risposta?
+C) Possibilmente questa?
+D) Deve essere questa!
 ANSWER: D
 
 Quanto fa 2+2?
-A. 4
-B. 5
-C. 2
-D. 1969
+A) 4
+B) 5
+C) 2
+D) 1969
 ANSWER: A</div>
     </article>
     
@@ -171,19 +172,13 @@ ANSWER: A</div>
             editor.setOption("mode", mode);
         }
     
-        // Funzione per gestire la selezione della lingua e aggiungere la classe 'selected-language'
         function setLanguage(language) {
-            // Rimuovi la classe dalla lingua precedentemente selezionata
             document.getElementById("lang-en").classList.remove("selected-language");
             document.getElementById("lang-it").classList.remove("selected-language");
-    
-            // Imposta la lingua con i18next
             i18next.changeLanguage(language, function(err, t) {
                 if (err) return console.log('Error loading language', err);
                 $('body').localize();
             });
-    
-            // Aggiungi la classe alla lingua selezionata
             if (language === 'en') {
                 document.getElementById("lang-en").classList.add("selected-language");
             } else if (language === 'it') {
@@ -191,7 +186,6 @@ ANSWER: A</div>
             }
         }
     
-        // Esegui automaticamente l'aggiornamento della lingua all'inizio in base alla lingua del browser
         window.onload = function() {
             var userLang = i18next.language || navigator.language || navigator.userLanguage;
             setLanguage(userLang.startsWith('it') ? 'it' : 'en');

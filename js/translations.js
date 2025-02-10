@@ -8,7 +8,9 @@ var res = {
             "menu.mode.label": "Type",
             "menu.mode.aiken": "AIKEN",
             "menu.mode.gift": "GIFT",
-            
+            "menu.desc1": "Next, you can enter the questions following the indicated format.",
+            "menu.desc2": "Make sure there are no errors before proceeding with the download.",
+
             "error.first-line-empty": "First line can't be empty",
             "error.question-must-be-in-one-line": "Question must be in one line",
             "error.question-without-answers": "Question without answers",
@@ -43,6 +45,8 @@ var res = {
             "menu.mode.label": "Tipo",
             "menu.mode.aiken": "AIKEN",
             "menu.mode.gift": "GIFT",
+            "menu.desc1": "Accanto, è possibile inserire le domande seguendo il formato indicato.",
+            "menu.desc2": "Verificare che non ci siano errori prima di procedere con il download",
 
             "error.first-line-empty": "La prima riga non può essere vuota",
             "error.question-must-be-in-one-line": "La domanda deve essere su una sola riga",
