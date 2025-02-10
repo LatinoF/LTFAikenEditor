@@ -71,7 +71,7 @@
             </li>
             
 
-            <li id="mode-aiken-gift" style="display:block; margin-bottom: 16px;">
+            <li id="mode-aiken-gift" style="display:none; margin-bottom: 16px;">
                 <label for="mode" data-i18n="menu.mode.label"></label>
                 <fluent-select id="mode" onchange="changeMode()">
                     <fluent-option value="aiken" data-i18n="menu.mode.aiken"></fluent-option>
@@ -84,6 +84,7 @@
             <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px;"></label>
             <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()"></fluent-switch>
         </li>
+        <fluent-divider style="margin-bottom: 32px;"></fluent-divider>
         <li style="margin-bottom: 16px;">Accanto, è possibile inserire<br>le domande seguendo il formato indicato.<br><br>Verificare che non ci siano errori<br>prima di procedere con il download</li>
         <li style="margin-bottom: 16px;">
             <fluent-button appearance="accent" onclick="saveTofile()" data-i18n="menu.save-to-file" ></fluent-button>
@@ -171,8 +172,5 @@ ANSWER: A</div>
         }
     
     </script>
-    <script type="module">
-        import { fluentToolbar, fluentButton, fluentSelect, fluentOption, provideFluentDesignSystem } from "https://unpkg.com/@fluentui/web-components@2.0.0";
-        provideFluentDesignSystem().register(fluentToolbar(), fluentButton(), fluentSelect(), fluentOption());
-    </script>
+    <script type="module" src="https://unpkg.com/@fluentui/web-components"></script>
     </body></html>
