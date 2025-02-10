@@ -16,6 +16,8 @@
     <script src="js/aiken-codemirror-mode.js"></script>
     <script src="js/aiken-codemirror-addon.js"></script>
     <script src="js/aiken-lint.js"></script>
+    <script src="js/gift-hint.js"></script>
+    <script src="js/gift-codemirror-mode.js"></script>
     <script src="js/jquery-i18next.min.js"></script>
     <script src="js/i18next.js"></script>
     <script src="js/i18nextBrowserLanguageDetector.js"></script>
@@ -29,39 +31,39 @@
         dd { margin-left: 1.5em; margin-bottom: 1em; }
         dt {margin-top: 1em;}
         html {font-size: 18px}
-        #nav { display: flex; justify-content: flex-end; }
-        #nav ul { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
-        #nav ul li {margin-right: 10px; display: flex; align-items: center; }
+        #nav ul li {margin-right:7px}
+        #nav ul li a{padding-right:0px}
         #nav ul li.header {font-weight:bold}
-        .language-options { display: flex; align-items: center; }
-        .language-option { cursor: pointer; display: flex; align-items: center; }
-        .language-option img { width: 20px; height: 20px; margin-right: 5px; }
-        .selected-language { font-weight: bold; text-decoration: underline;}
         @media screen and (min-width: 1000px) {
             #nav {
                 border-right: 450px solid transparent;
             }
         }
+    
+        article{
+            max-width: 900px;
+            padding: 30px 50px 30px 50px;
+        }
+    
     </style>
     </head>
     <body>
     <div id="nav">
         <ul class="options">
-            <li class="header" data-i18n="menu.options" style="font-size: 16pt; color: #0063b1; margin-bottom: 16px;"></li>
-            <li class="" data-i18n="menu.language" style=""></li>
-            <li style="display: flex;">   
-                <div class="language-options" style="margin-bottom: 16px;">
-                    <div id="lang-en" class="language-option" onclick="setLanguage('en')" style="padding-right: 8px;"><img src="https://img.icons8.com/?size=48&id=ShNNs7i8tXQF&format=png"> English</div>
-                    <div id="lang-it" class="language-option" onclick="setLanguage('it')"><img src="https://img.icons8.com/?size=48&id=WmOfu4e7Rvp7&format=png"> Italiano</div>
-                </div>
+            <li class="header" data-i18n="menu.options"></li>
+            <li id="mode-aiken-gift" style="display:none">
+                <label for="mode" data-i18n="menu.mode.label"></label>
+                <select id="mode" onchange="changeMode()">
+                    <option value="aiken" data-i18n="menu.mode.aiken"></option>
+                    <option value="gift" data-i18n="menu.mode.gift"></option>
+                </select>
             </li>
-            <li style="margin-bottom: 32px;">
-                <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px;"></label>
-                <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()"></fluent-switch>
+            <li>
+                <input type="checkbox" id="autocomplete" checked="checked" onchange="autocompleteChanged()">
+                <label for="autocomplete" data-i18n="menu.autocomplete"></label>
             </li>
-            <p style="max-width: 250px; margin-right: 12px;">Accanto, è possibile inserire le domande seguendo il formato indicato. <br><br>Verificare che non ci siano errori prima di procedere con il download del database</p>
-            <li style="margin-bottom: 16px;">
-                <fluent-button appearance="accent" onclick="saveTofile()" data-i18n="menu.save-to-file" ></fluent-button>
+            <li>
+                <button onclick="saveTofile()" data-i18n="menu.save-to-file"></button>
             </li>
         </ul>
     </div>
@@ -95,22 +97,8 @@ ANSWER: A</div>
                 }, function (err, t) {
                     jqueryI18next.init(i18next, $);
                     $('body').localize();
-                    updateLanguageUI(i18next.language);
                 });
-    
-        function updateLanguageUI(lang) {
-            document.getElementById('lang-en').classList.remove('selected-language');
-            document.getElementById('lang-it').classList.remove('selected-language');
-            document.getElementById('lang-' + lang).classList.add('selected-language');
-        }
-    
-        function setLanguage(lang) {
-            i18next.changeLanguage(lang, () => {
-                $('body').localize();
-                updateLanguageUI(lang);
-            });
-        }
-    
+
         var sc = document.getElementById("aikenexample");
         var code = document.getElementById("code");
         var editor = CodeMirror(code, {
@@ -122,16 +110,17 @@ ANSWER: A</div>
             gutters: ["CodeMirror-lint-markers"],
             aikenAutocomplete: document.getElementById("autocomplete").checked
         });
-    
+
         function autocompleteChanged() {
             editor.setOption("aikenAutocomplete", document.getElementById("autocomplete").checked);
         }
-    
+
         function saveTofile() {
             let textToWrite = editor.getValue().replace(/\n/g, "\r\n").trim();
             let blob = new Blob([textToWrite], {type: 'text/plain'});
             let d = new Date();
-            let fileName = d.getFullYear() + "." + String(d.getMonth() + 1).padStart(2, "0") + "." + String(d.getDate()).padStart(2, "0") + " - DB AIKEN.txt";
+            let mode = getMode().toUpperCase();
+            let fileName = d.getFullYear() + "." + String(d.getMonth() + 1).padStart(2, "0") + "." + String(d.getDate()).padStart(2, "0") + " - DB " + mode + ".txt";
     
             if (window.navigator.msSaveOrOpenBlob) {
                 window.navigator.msSaveOrOpenBlob(blob, fileName);
@@ -148,9 +137,15 @@ ANSWER: A</div>
                 }, 0);
             }
         }
-    </script>
-    <script type="module">
-        import { fluentToolbar, fluentButton, provideFluentDesignSystem } from "https://unpkg.com/@fluentui/web-components@2.0.0";
-        provideFluentDesignSystem().register(fluentToolbar(), fluentButton());
+    
+        function getMode() {
+            return document.getElementById("mode").value;
+        }
+    
+        function changeMode() {
+            var mode = getMode();
+            editor.setOption("mode", mode);
+        }
+    
     </script>
     </body></html>
