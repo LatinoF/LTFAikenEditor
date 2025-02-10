@@ -2,9 +2,11 @@ var res = {
     en: {
         translation: {
             "menu.options": "Options",
-            "menu.language": "Language:",
             "menu.autocomplete": "Autocomplete",
-            "menu.save-to-file": "Save & Download",
+            "menu.save-to-file": "Save to file",
+            "menu.mode.label": "File type",
+            "menu.mode.aiken": "AIKEN",
+            "menu.mode.gift": "GIFT",
             
             "error.first-line-empty": "First line can't be empty",
             "error.question-must-be-in-one-line": "Question must be in one line",
@@ -34,9 +36,11 @@ var res = {
     it: {
         translation: {
             "menu.options": "Opzioni",
-            "menu.language": "Lingua:",
-            "menu.autocomplete": "Autocompletamento",
-            "menu.save-to-file": "Salva & Scarica",
+            "menu.autocomplete": "Autocompleta",
+            "menu.save-to-file": "Salva e scarica",
+            "menu.mode.label": "Tipo",
+            "menu.mode.aiken": "AIKEN",
+            "menu.mode.gift": "GIFT",
 
             "error.first-line-empty": "La prima riga non può essere vuota",
             "error.question-must-be-in-one-line": "La domanda deve essere su una sola riga",
