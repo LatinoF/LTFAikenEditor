@@ -2,9 +2,10 @@ var res = {
     en: {
         translation: {
             "menu.options": "Options",
+            "menu.language": "Language:",
             "menu.autocomplete": "Autocomplete",
-            "menu.save-to-file": "Save to file",
-            "menu.mode.label": "File type",
+            "menu.save-to-file": "Save & Download",
+            "menu.mode.label": "Type",
             "menu.mode.aiken": "AIKEN",
             "menu.mode.gift": "GIFT",
             
@@ -36,8 +37,9 @@ var res = {
     it: {
         translation: {
             "menu.options": "Opzioni",
-            "menu.autocomplete": "Autocompleta",
-            "menu.save-to-file": "Salva e scarica",
+            "menu.language": "Lingua:",
+            "menu.autocomplete": "Autocompletamento",
+            "menu.save-to-file": "Salva & Scarica",
             "menu.mode.label": "Tipo",
             "menu.mode.aiken": "AIKEN",
             "menu.mode.gift": "GIFT",
