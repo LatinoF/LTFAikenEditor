@@ -34,6 +34,13 @@
         #nav ul li {margin-right:7px}
         #nav ul li a{padding-right:0px}
         #nav ul li.header {font-weight:bold}
+        .language-option{
+            display: inline-block; vertical-align: middle; padding-right: 8px;
+        }  
+        .language-option img{
+            vertical-align: middle; margin-right: 4px; width: 22px; height: 22px;
+        }       
+        .selected-language { font-weight: bold; text-decoration: underline;}
         @media screen and (min-width: 1000px) {
             #nav {
                 border-right: 450px solid transparent;
@@ -51,6 +58,18 @@
     <div id="nav">
         <ul class="options">
             <li class="header" data-i18n="menu.options" style="font-size: 16pt; color: #0063b1; margin-bottom: 16px;"></li>
+
+            <li class="" data-i18n="menu.language"></li>
+
+            <li style="margin-bottom: 16px;">
+                <div id="lang-en" class="language-option" onclick="setLanguage('en')">
+                    <img src="https://img.icons8.com/?size=48&id=ShNNs7i8tXQF&format=png"> English
+                </div>
+                <div id="lang-it" class="language-option" onclick="setLanguage('it')" >
+                    <img src="https://img.icons8.com/?size=48&id=WmOfu4e7Rvp7&format=png" > Italiano
+                </div>
+            </li>
+            
 
             <li id="mode-aiken-gift" style="display:block; margin-bottom: 16px;">
                 <label for="mode" data-i18n="menu.mode.label"></label>
