@@ -253,7 +253,6 @@ AikenHint = function(){
     }
 }
 
-// poprawmy IE
 if (!String.prototype.includes) {
   String.prototype.includes = function(search, start) {
     'use strict';

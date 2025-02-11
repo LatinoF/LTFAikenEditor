@@ -11,13 +11,12 @@
 CodeMirror.defineSimpleMode("gift", {
   // The start state contains the rules that are intially used
   start: [
-	// komentarz
 	{regex: GIFT_REGEXP_COMMENT, 	token: ["comment"], sol:true},
 	{regex: /^(::.*?::)(.*)(\{)(.*)(\})(.*)$/, token: ["header", "atom", "string-2", "atom", "string-2", "atom"], sol:true},
-//	// poprawna odpowiedz
-//	{regex: AIKEN_REGEXP_CORRECT_ANSWER, 	token: ["number", null, "comment"], sol:true},
-//	// pytanie - do poprawy?
-//	{regex: AIKEN_REGEXP_QUESTION, 				token: "atom", sol:true}
+// correct answer
+// {regex: AIKEN_REGEXP_CORRECT_ANSWER, token: ["number", null, "comment"], sol:true},
+// // question - to be improved?
+// {regex: AIKEN_REGEXP_QUESTION, token: "atom", sol:true}
 
     {regex: /^(string)$/, token: "string"},
     {regex: /^(string-2)$/, token: "string-2"},
