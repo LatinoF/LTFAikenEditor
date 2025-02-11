@@ -10,6 +10,7 @@ var res = {
             "menu.mode.gift": "GIFT",
             "menu.desc1": "Next, you can enter the questions following the indicated format.",
             "menu.desc2": "Make sure there are no errors before proceeding with the download.",
+            "footer.icons": "Icons by ",
 
             "error.first-line-empty": "First line can't be empty",
             "error.question-must-be-in-one-line": "Question must be in one line",
@@ -47,6 +48,7 @@ var res = {
             "menu.mode.gift": "GIFT",
             "menu.desc1": "Accanto, è possibile inserire le domande seguendo il formato indicato.",
             "menu.desc2": "Verificare che non ci siano errori prima di procedere con il download",
+            "footer.icons": "Icone da ",
 
             "error.first-line-empty": "La prima riga non può essere vuota",
             "error.question-must-be-in-one-line": "La domanda deve essere su una sola riga",
