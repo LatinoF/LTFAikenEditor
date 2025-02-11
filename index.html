@@ -4,7 +4,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="https://img.icons8.com/?size=16&id=7LhMaNDFgoYK&format=png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/?size=32&id=7LhMaNDFgoYK&format=png">
     <link rel="icon" type="image/png" sizes="48x48" href="https://img.icons8.com/?size=48&id=7LhMaNDFgoYK&format=png">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/codemirror.css">
     <link rel="stylesheet" href="css/lint.css">
@@ -25,7 +24,6 @@
     
     <style>
         .CodeMirror {border: 1px solid silver; margin-bottom: 1em; height: calc(100% - 40px)}
-        html {font-size: 18px}
         #nav ul li {margin-right:7px}
         #nav ul li a{padding-right:0px}
         #nav ul li.header {font-weight:bold}
@@ -46,7 +44,7 @@
     <div id="nav">
         <ul class="options">
             <li class="header" data-i18n="menu.options" style="font-size: 16pt; color: #0063b1; margin-bottom: 16px;"></li>
-
+            <!-- Language selector -->
             <li style="margin-bottom: 16px;">
                 <label for="mode" data-i18n="menu.language" style="margin-right: 8px; display: inline-block; vertical-align: middle;"></label>
                 <div id="lang-en" class="language-option" onclick="setLanguage('en')"> 
@@ -56,28 +54,27 @@
                     <img src="https://img.icons8.com/?size=48&id=WmOfu4e7Rvp7&format=png" >Italiano
                 </div>
             </li>
-            
+            <!-- Language selector -->
 
-            <li id="mode-aiken-gift" style="display:none; margin-bottom: 16px;">
-                <label for="mode" data-i18n="menu.mode.label"></label>
-                <fluent-select id="mode" onchange="changeMode()">
-                    <fluent-option value="aiken" data-i18n="menu.mode.aiken"></fluent-option>
-                    <fluent-option value="gift" data-i18n="menu.mode.gift"></fluent-option>
-                </fluent-select>
+            <!-- Autocomplete toggle -->
             </li>
+            <li style="margin-bottom: 32px; list-style: none;">
+                <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px; display: inline-block; vertical-align: middle; line-height: 24px;">Autocomplete</label>
+                <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()" style="vertical-align: middle;"></fluent-switch>
+            </li>
+            <!-- Autocomplete toggle -->
 
-        </li>
-        <li style="margin-bottom: 32px; list-style: none;">
-            <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px; display: inline-block; vertical-align: middle; line-height: 24px;">Autocomplete</label>
-            <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()" style="vertical-align: middle;"></fluent-switch>
-        </li>
-        
-        <fluent-divider style="margin-bottom: 32px;"></fluent-divider>
-        <li style="margin-bottom: 16px; max-width: 320px; text-align: right; margin-left: auto;" data-i18n="menu.desc1"></li>
-        <li style="margin-bottom: 16px; max-width: 320px; text-align: right; margin-left: auto;" data-i18n="menu.desc2"></li>
-        <li style="margin-bottom: 16px;">
-            <fluent-button appearance="accent" onclick="saveTofile()" data-i18n="menu.save-to-file" ></fluent-button>
-        </li>
+            <!-- Desc -->
+            <fluent-divider style="margin-bottom: 32px;"></fluent-divider>
+            <li style="margin-bottom: 16px; max-width: 320px; text-align: right; margin-left: auto;" data-i18n="menu.desc1"></li>
+            <li style="margin-bottom: 16px; max-width: 320px; text-align: right; margin-left: auto;" data-i18n="menu.desc2"></li>
+            <!-- Desc -->
+
+            <!-- Download button -->
+            <li style="margin-bottom: 16px;">
+                <fluent-button appearance="accent" onclick="saveTofile()" data-i18n="menu.save-to-file" ></fluent-button>
+            </li>
+            <!-- Download button -->
         </ul>
     </div>
     
@@ -97,10 +94,11 @@ C. 2
 D. 1969
 ANSWER: A</div>
     </article>
-    
-    <div style="position:absolute;bottom:0;left:4px;z-index:2;font-size:12px">Mah Davveroh?</div>
-    <div style="position:absolute;bottom:0;right:4px;z-index:2;font-size:12px"><label data-i18n="footer.icons" ></label><a target="_blank" href="https://icons8.com">Icons8</a></div>
-    
+
+    <!-- Footer texts -->
+    <div id="text-changer" style="position:absolute;bottom:0;left:4px;z-index:2;font-size:12px">Mah Davveroh?</div>
+    <div style="position:absolute;bottom:0;right:4px;z-index:2;font-size:12px"><label data-i18n="footer.icons8" ></label><a target="_blank" href="https://icons8.com">Icons8</a></div>
+    <!-- Footer texts -->
     
     <script>
         i18next
@@ -182,6 +180,19 @@ ANSWER: A</div>
             editor.setOption("aikenAutocomplete", checkbox.checked);
         });
     </script>
+        <script>
+            $(document).ready(function() {
+                const texts = ["Mah Davveroh?", "Ebberghe?", "Tutto Positivo?"];
+                let currentIndex = 0;
+    
+                function changeText() {
+                    $('#text-changer').text(texts[currentIndex]);
+                    currentIndex = (currentIndex + 1) % texts.length;
+                }
+    
+                setInterval(changeText, 3000);
+            });
+        </script>
     
     <script type="module" src="https://unpkg.com/@fluentui/web-components"></script>
     </body></html>
