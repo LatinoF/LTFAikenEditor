@@ -1,13 +1,10 @@
-@font-face {
-  font-family: 'Nunito';
-  src: url('../fonts/Nunito.ttf') format('truetype');
-  font-weight: 400;
-  font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400..800&display=swap');
+
 
 :root {
-  --primary-color: #0063B1;       /* Color for questions */
-  --secondary-color: #2E7D32;     /* Color for possible answers */
+  --primary-color: #0063B1;       /* Color for question text */
+  --secondary-color: #2E7D32;     /* Color for possible answer text */
   --option-letter-color: #800080; /* Color for option letters */
   --text-color: #070707;          /* Color for text */
 }
@@ -118,7 +115,7 @@ article {
   vertical-align: middle;
   padding-right: 8px;
   cursor: pointer;
-  line-height: 24px; /* Match the line height with the label */
+  line-height: 24px;
 }
 
 .language-option img {
@@ -134,25 +131,25 @@ article {
   text-decoration: underline;
 }
 
-/* Question Text */
 .cm-s-default .cm-atom {
     color: var(--primary-color) !important;
     font-weight: bold !important;
 }
 
-/* Letters */
 .cm-s-default .cm-comment {
     color: var(--option-letter-color) !important;
     font-weight: bold !important;
 }
 
-/* Possible answers text */
 .cm-s-default .cm-variable-2 {
     color: var(--text-color) !important;
 }
 
-/* ANSWER */
 .cm-s-default .cm-number {
     color: var(--secondary-color) !important;
     font-weight: bold !important;
+}
+
+.CodeMirror {
+  font-family: "Baloo Chettan 2"!important;
 }
