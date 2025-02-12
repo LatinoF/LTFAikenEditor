@@ -1,198 +1,51 @@
-<!DOCTYPE html><html><head>
-    <title>LTF Aiken Editor</title>
-    <meta charset="utf-8">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://img.icons8.com/?size=16&id=7LhMaNDFgoYK&format=png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://img.icons8.com/?size=32&id=7LhMaNDFgoYK&format=png">
-    <link rel="icon" type="image/png" sizes="48x48" href="https://img.icons8.com/?size=48&id=7LhMaNDFgoYK&format=png">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/codemirror.css">
-    <link rel="stylesheet" href="css/lint.css">
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <script src="js/codemirror.js"></script>
-    <script src="js/simple.js"></script>
-    <script src="js/lint.js"></script>
-    <script src="js/aiken-hint.js"></script>
-    <script src="js/aiken-codemirror-mode.js"></script>
-    <script src="js/aiken-codemirror-addon.js"></script>
-    <script src="js/aiken-lint.js"></script>
-    <script src="js/jquery-i18next.min.js"></script>
-    <script src="js/i18next.js"></script>
-    <script src="js/i18nextBrowserLanguageDetector.js"></script>
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-ui.min.js"></script>
-    <script src="js/translations.js"></script>
-    
-    <style>
-        .CodeMirror {border: 1px solid silver; margin-bottom: 1em; height: calc(100% - 40px)}
-        #nav ul li {margin-right:7px}
-        #nav ul li a{padding-right:0px}
-        #nav ul li.header {font-weight:bold}
-        @media screen and (min-width: 1000px) {
-            #nav {
-                border-right: 450px solid transparent;
-            }
-        }
-    
-        article{
-            max-width: 900px;
-            padding: 30px 50px 30px 50px;
-        }
-    
-    </style>
-    </head>
-    <body>
-    <div id="nav">
-        <ul class="options">
-            <li class="header" data-i18n="menu.options" style="font-size: 16pt; color: #0063b1; margin-bottom: 16px;"></li>
-            <!-- Language selector -->
-            <li style="margin-bottom: 16px;">
-                <label for="mode" data-i18n="menu.language" style="margin-right: 8px; display: inline-block; vertical-align: middle;"></label>
-                <div id="lang-en" class="language-option" onclick="setLanguage('en')"> 
-                    <img src="https://img.icons8.com/?size=48&id=ShNNs7i8tXQF&format=png">English
-                </div>
-                <div id="lang-it" class="language-option" onclick="setLanguage('it')" >
-                    <img src="https://img.icons8.com/?size=48&id=WmOfu4e7Rvp7&format=png" >Italiano
-                </div>
-            </li>
-            <!-- Language selector -->
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>LTF Aiken</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><link rel="stylesheet" href="./css/preload.css">
 
-            <!-- Autocomplete toggle -->
-            </li>
-            <li style="margin-bottom: 32px; list-style: none;">
-                <label for="autocomplete" data-i18n="menu.autocomplete" style="margin-right: 8px; display: inline-block; vertical-align: middle; line-height: 24px;">Autocomplete</label>
-                <fluent-switch id="autocomplete" checked onchange="autocompleteChanged()" style="vertical-align: middle;"></fluent-switch>
-            </li>
-            <!-- Autocomplete toggle -->
+</head>
+<body>
+<main>
+	<svg class="ip" viewBox="0 0 256 128" width="256px" height="128px" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<linearGradient id="grad1" x1="0" y1="0" x2="1" y2="0">
+				<stop offset="0%" stop-color="#5ebd3e" />
+				<stop offset="33%" stop-color="#ffb900" />
+				<stop offset="67%" stop-color="#f78200" />
+				<stop offset="100%" stop-color="#e23838" />
+			</linearGradient>
+			<linearGradient id="grad2" x1="1" y1="0" x2="0" y2="0">
+				<stop offset="0%" stop-color="#e23838" />
+				<stop offset="33%" stop-color="#973999" />
+				<stop offset="67%" stop-color="#009cdf" />
+				<stop offset="100%" stop-color="#5ebd3e" />
+			</linearGradient>
+		</defs>
+		<g fill="none" stroke-linecap="round" stroke-width="16">
+			<g class="ip__track" stroke="#ddd">
+				<path d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+				<path d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+			</g>
+			<g stroke-dasharray="180 656">
+				<path class="ip__worm1" stroke="url(#grad1)" stroke-dashoffset="0" d="M8,64s0-56,60-56,60,112,120,112,60-56,60-56"/>
+				<path class="ip__worm2" stroke="url(#grad2)" stroke-dashoffset="358" d="M248,64s0-56-60-56-60,112-120,112S8,64,8,64"/>
+			</g>
+		</g>
+	</svg>
+</main>
+</body>
+<script>
+		const pageMappings = {
+	editor: "editor.html",
+	maker: "maker.html",
+	};
 
-            <!-- Desc -->
-            <fluent-divider style="margin-bottom: 32px;"></fluent-divider>
-            <li style="margin-bottom: 16px; max-width: 320px; text-align: right; margin-left: auto;" data-i18n="menu.desc1"></li>
-            <li style="margin-bottom: 16px; max-width: 320px; text-align: right; margin-left: auto;" data-i18n="menu.desc2"></li>
-            <!-- Desc -->
+	const currentPage = new URLSearchParams(window.location.search).get("page");
 
-            <!-- Download button -->
-            <li style="margin-bottom: 16px;">
-                <fluent-button appearance="accent" onclick="saveTofile()" data-i18n="menu.save-to-file" ></fluent-button>
-            </li>
-            <!-- Download button -->
-        </ul>
-    </div>
-    
-    <article>
-        <div id="code"></div>
-        <div id="aikenexample" style="display:none">Qual è la risposta corretta a questa domanda?
-A. È questa?
-B. Forse questa risposta?
-C. Possibilmente questa?
-D. Deve essere questa!
-ANSWER: D
-
-Quanto fa 2+2?
-A. 4
-B. 5
-C. 2
-D. 1969
-ANSWER: A</div>
-    </article>
-
-    <!-- Footer texts -->
-    <div id="text-changer" style="position:absolute;bottom:0;left:4px;z-index:2;font-size:12px">Mah Davveroh?</div>
-    <div style="position:absolute;bottom:0;right:4px;z-index:2;font-size:12px"><label data-i18n="footer.icons8" ></label><a target="_blank" href="https://icons8.com">Icons8</a></div>
-    <!-- Footer texts -->
-    
-    <script>
-        i18next
-            .use(i18nextBrowserLanguageDetector)
-            .init({
-                fallbackLng: "en",
-                keySeparator: false,
-                resources: res
-            }, function (err, t) {
-                jqueryI18next.init(i18next, $);
-                $('body').localize();
-            });
-    
-        var sc = document.getElementById("aikenexample");
-        var code = document.getElementById("code");
-        var editor = CodeMirror(code, {
-            value: (sc.textContent || sc.innerText || sc.innerHTML),
-            mode: "aiken",
-            lint: true,
-            lineNumbers: true,
-            lineWrapping: true,
-            gutters: ["CodeMirror-lint-markers"],
-            aikenAutocomplete: document.getElementById("autocomplete").checked
-        });
-    
-        function setLanguage(language) {
-            document.getElementById("lang-en").classList.remove("selected-language");
-            document.getElementById("lang-it").classList.remove("selected-language");
-            i18next.changeLanguage(language, function(err, t) {
-                if (err) return console.log('Error loading language', err);
-                $('body').localize();
-            });
-            if (language === 'en') {
-                document.getElementById("lang-en").classList.add("selected-language");
-            } else if (language === 'it') {
-                document.getElementById("lang-it").classList.add("selected-language");
-            }
-        }
-    
-        window.onload = function() {
-            var userLang = i18next.language || navigator.language || navigator.userLanguage;
-            setLanguage(userLang.startsWith('it') ? 'it' : 'en');
-        };
-    
-        function autocompleteChanged() {
-            editor.setOption("aikenAutocomplete", document.getElementById("autocomplete").checked);
-        }
-    
-        function saveTofile() {
-            let textToWrite = editor.getValue().replace(/\n/g, "\r\n").trim();
-            let blob = new Blob([textToWrite], {type: 'text/plain'});
-            let d = new Date();
-            let fileName = d.getFullYear() + "." + String(d.getMonth() + 1).padStart(2, "0") + "." + String(d.getDate()).padStart(2, "0") + " - DB AIKEN " + ".txt";
-            if (window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveOrOpenBlob(blob, fileName);
-            } else {
-                var a = document.createElement("a");
-                a.href = URL.createObjectURL(blob);
-                a.download = fileName;
-                a.style.display = 'none';
-                document.body.appendChild(a);
-                a.click();
-                setTimeout(function () {
-                    document.body.removeChild(a);
-                    window.URL.revokeObjectURL(a);
-                }, 0);
-            }
-        }
-    
-        // Function to handle checkbox changes
-        function autocompleteChanged() {
-            const checkbox = document.getElementById("autocomplete");
-            editor.setOption("aikenAutocomplete", checkbox.checked);
-        }
-    
-        // Set initial state of autocomplete based on checkbox
-        document.addEventListener("DOMContentLoaded", function() {
-            const checkbox = document.getElementById("autocomplete");
-            editor.setOption("aikenAutocomplete", checkbox.checked);
-        });
-    </script>
-        <script>
-            $(document).ready(function() {
-                const texts = ["Mah Davveroh?", "Ebberghe?", "Tutto Positivo?"];
-                let currentIndex = 0;
-    
-                function changeText() {
-                    $('#text-changer').text(texts[currentIndex]);
-                    currentIndex = (currentIndex + 1) % texts.length;
-                }
-    
-                setInterval(changeText, 3000);
-            });
-        </script>
-    
-    <script type="module" src="https://unpkg.com/@fluentui/web-components"></script>
-    </body></html>
+	if (currentPage && pageMappings[currentPage]) {
+	window.location.href = pageMappings[currentPage];
+	}
+</script>
+</html>
