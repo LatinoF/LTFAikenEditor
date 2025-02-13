@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,265 +9,489 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     <style>
-      .scrollbar-thin::-webkit-scrollbar {
-          width: 4px;
-      }
-      .scrollbar-thin::-webkit-scrollbar-thumb {
-          background-color: #a0aec0;
-          border-radius: 8px;
-      }
-      .max-w-8xl{
-        max-width: 75%;
-      }
-      body {
+        .scrollbar-thin::-webkit-scrollbar {
+            width: 4px;
+        }
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+            background-color: #a0aec0;
+            border-radius: 8px;
+        }
+        .max-w-8xl {
+            max-width: 75%;
+        }
+        body {
             font-family: 'Nunito', sans-serif;
         }
-  </style>
-
+    </style>
 </head>
 <body class="p-6 bg-gray-100">
-    <div class="max-w-8xl mx-auto flex space-x-6">
-        <div class="w-3/5 bg-white p-6 shadow-lg rounded-xl max-h-fit overflow-y-auto">
+    <div class="max-w-8xl mx-auto flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+        <!-- Sezione Creazione Domanda -->
+        <div class="w-full md:w-3/5 bg-white p-6 shadow-lg rounded-xl max-h-fit overflow-y-auto">
             <h1 class="text-2xl font-bold mb-4">LTF Aiken Question Creator</h1>
             
-            <label class="block mb-2">Domanda:</label>
-            <input id="questionText" class="w-full border p-2 rounded mb-4" placeholder="Corpo della domanda"></input>
+            <label for="questionText" class="block mb-2 font-semibold">Domanda:</label>
+            <input id="questionText" class="w-full border p-2 rounded mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Corpo della domanda" aria-label="Testo della domanda">
+
+            <fieldset class="mb-4">
+                <legend class="block mb-2 font-semibold">Opzioni di risposta:</legend>
+                <div id="answers" class="space-y-2">
+                    <!-- Opzione Risposta -->
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" name="correctAnswer" value="A" id="answerA" checked>
+                        <div class="relative w-full">
+                            <label for="answerA" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">A:</label>
+                            <input type="text" class="w-full border p-2 pl-8 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Risposta A" required aria-labelledby="answerA">
+                        </div>
+                    </div>
+                    <!-- Ripeti per le altre opzioni -->
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" name="correctAnswer" value="B" id="answerB">
+                        <div class="relative w-full">
+                            <label for="answerB" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">B:</label>
+                            <input type="text" class="w-full border p-2 pl-8 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Risposta B" aria-labelledby="answerB">
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" name="correctAnswer" value="C" id="answerC">
+                        <div class="relative w-full">
+                            <label for="answerC" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">C:</label>
+                            <input type="text" class="w-full border p-2 pl-8 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Risposta C" aria-labelledby="answerC">
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <input type="radio" name="correctAnswer" value="D" id="answerD">
+                        <div class="relative w-full">
+                            <label for="answerD" class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">D:</label>
+                            <input type="text" class="w-full border p-2 pl-8 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Risposta D" aria-labelledby="answerD">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
             
-            <label class="block mb-2">Opzioni di risposta:</label>
-            <div id="answers" class="mb-4 space-y-2">
-              <div class="flex items-center space-x-2">
-                  <input type="radio" name="correctAnswer" value="A" checked>
-                  <div class="relative w-full">
-                      <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">A:</span>
-                      <input type="text" class="w-full border p-2 pl-8 rounded" placeholder="Risposta A" value="" required>
-                  </div>
-              </div>
-              <div class="flex items-center space-x-2">
-                  <input type="radio" name="correctAnswer" value="B">
-                  <div class="relative w-full">
-                      <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">B:</span>
-                      <input type="text" class="w-full border p-2 pl-8 rounded" placeholder="Risposta B" value="">
-                  </div>
-              </div>
-              <div class="flex items-center space-x-2">
-                  <input type="radio" name="correctAnswer" value="C">
-                  <div class="relative w-full">
-                      <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">C:</span>
-                      <input type="text" class="w-full border p-2 pl-8 rounded" placeholder="Risposta C" value="">
-                  </div>
-              </div>
-              <div class="flex items-center space-x-2">
-                  <input type="radio" name="correctAnswer" value="D">
-                  <div class="relative w-full">
-                      <span class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500">D:</span>
-                      <input type="text" class="w-full border p-2 pl-8 rounded" placeholder="Risposta D" value="">
-                  </div>
-              </div>
-            </div>
-            
-            <button onclick="addQuestion()" class="px-2 py-2 bg-green-500 text-white rounded flex items-center hover:bg-green-600 hover:text-gray-100 transition duration-200">
-              <span class="material-icons">add</span> Aggiungi Domanda
-          </button>
+            <button onclick="addQuestion()" class="px-4 py-2 bg-green-500 text-white rounded flex items-center hover:bg-green-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-400">
+                <span class="material-icons mr-2">add</span> Aggiungi Domanda
+            </button>
         </div>
         
-        <div class="w-2/5 bg-white p-6 shadow-lg rounded-xl h-[94vh] flex flex-col">
-          <div class="flex justify-between items-center mb-4">
-              <h1 class="text-xl font-bold">Database</h1>
-              <div class="flex space-x-2">
-                  <button id="clearCacheButton" class="px-2 py-2 bg-red-500 text-white rounded flex items-center hover:bg-red-600 hover:text-gray-100 transition duration-200">
-                    <span class="material-icons">delete</span> Cancella DB
+        <!-- Sezione Database -->
+        <div class="w-full md:w-2/5 bg-white p-6 shadow-lg rounded-xl h-[94vh] flex flex-col">
+            <div class="flex justify-between items-center mb-4">
+                <h1 class="text-xl font-bold">Database</h1>
+                
+            </div>
+            <div class="flex-1 overflow-y-auto scrollbar-thin">
+                <ul id="questionList" class="space-y-2 mr-2"></ul>
+            </div>
+            <div class="flex space-x-2 mt-4">
+                <button id="clearCacheButton" class="w-1/3 px-4 py-2 bg-red-500 text-white rounded flex items-center hover:bg-red-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-red-400">
+                    <span class="material-icons mr-2">delete</span> Cancella DB
                 </button>
-              
-                  <button onclick="downloadAiken()" class="px-2 py-2 bg-blue-700 text-white rounded flex items-center hover:bg-blue-600 hover:text-gray-200 transition duration-200">
-                      <span class="material-icons">download</span> Scarica DB
-                  </button>
-              </div>
-          </div>
-          <div class="flex-1 overflow-y-auto scrollbar-thin">
-              <ul id="questionList" class="space-y-2 mr-2"></ul>
-          </div>
-      </div>
-      
+                <button onclick="downloadAiken()" class="w-1/3 px-4 py-2 bg-blue-700 text-white rounded flex items-center hover:bg-blue-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <span class="material-icons mr-2">download</span> Scarica DB
+                </button>
+                <button onclick="triggerFileInput()" class="w-1/3 px-4 py-2 bg-yellow-500 text-white rounded flex items-center hover:bg-yellow-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                    <span class="material-icons mr-2">upload</span> Importa DB
+                </button>
+                <input type="file" id="importFileInput" accept=".txt" class="hidden" onchange="importAiken(event)">
+            </div>
+        </div>
     </div>
 
+    <!-- Modal Unico -->
+    <div id="DynamicModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden" aria-hidden="true">
+        <div class="bg-white rounded-lg p-6 max-w-sm w-full shadow-lg" role="dialog" aria-modal="true" aria-labelledby="modalHeader">
+            <h2 id="modalTitle" class="text-lg font-bold mb-4 flex items-center">
+                <span id="modalIcon" class="material-icons mr-2"></span>
+                <span id="modalHeader">Titolo</span>
+            </h2>
+            <p id="modalMessage" class="mb-4">Messaggio</p>
+            <div id="modalButtons" class="flex justify-end space-x-2">
+                <!-- I pulsanti verranno aggiunti dinamicamente -->
+            </div>
+        </div>
+    </div>
+    <!-- Info Modal (modular) -->
     <div id="InfoModalContainer"></div>
 
-    <div id="customAlert" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-6 max-w-sm w-full">
-            <h2 class="text-lg font-bold mb-4 flex items-center">
-                <span class="material-icons mr-2 text-orange-400">warning</span> Attenzione
-            </h2>
-            <p id="alertMessage" class="mb-4">Completare tutti i campi</p>
-            <div class="flex justify-end">
-                <button id="closeAlert" class="flex items-center px-2 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                    <span class="material-icons mr-2">check</span> OK
-                </button>
-            </div>
-        </div>
-    </div>
-    
-
-    <div id="confirmModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-      <div class="bg-white rounded-lg p-6 max-w-sm w-full">
-        <h2 class="text-lg font-bold mb-4 flex items-center">
-            <span class="material-icons mr-2 text-orange-400">warning</span> Attenzione
-        </h2>
-          <p id="confirmMessage" class="mb-4">Placeholder Testo Notifica</p>
-          <div class="flex justify-end">
-            <button id="cancelConfirm" class="px-2 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 mr-2 flex items-center">
-                <span class="material-icons">close</span> Annulla
-            </button>
-            
-            <button id="confirmAction" class="px-2 py-2 bg-red-500 text-white rounded flex items-center hover:bg-red-600 hover:text-gray-100 transition duration-200">
-                <span class="material-icons">delete</span> Cancella DB
-            </button>
-        </div>
-        
-      </div>
-  </div>
-  
-
     <script>
+        (() => {
+            'use strict';
 
-        function saveToCookies() {
-            document.cookie = `questions=${encodeURIComponent(JSON.stringify(questions))}; path=/; max-age=86400`;
-        }
-        
-        function loadFromCookies() {
-            let cookieData = document.cookie.split('; ').find(row => row.startsWith('questions='));
-            if (cookieData) {
-                questions = JSON.parse(decodeURIComponent(cookieData.split('=')[1]));
+            let questions = [];
+
+            // Mostra un alert
+            const showAlert = (message) => {
+                showModal({
+                    type: 'alert',
+                    message
+                });
+            };
+
+            // Mostra un'informazione
+            const showInfo = (message) => {
+                showModal({
+                    type: 'info',
+                    message
+                });
+            };
+
+            // Aggiungi una nuova domanda
+            const addQuestion = () => {
+                const questionText = document.getElementById("questionText").value.trim();
+                const answerElements = document.querySelectorAll("#answers .flex");
+                const answers = [];
+                let correctAnswer = "";
+
+                answerElements.forEach((el, i) => {
+                    const input = el.querySelector("input[type='text']");
+                    const radio = el.querySelector("input[type='radio']");
+                    const answerValue = input.value.trim();
+                    answers.push(answerValue);
+                    if (radio.checked) correctAnswer = String.fromCharCode(65 + i);
+                });
+
+                if (!questionText || answers.some(a => a === "")) {
+                    showAlert("Completare tutti i campi");
+                    return;
+                }
+
+                questions.push({ text: questionText, answers, correctAnswer });
                 updateQuestionList();
-            }
-        }
-        
-        let questions = [];
-        loadFromCookies();
-        
-        function showAlert(message) {
-        const alertMessage = document.getElementById('alertMessage');
-        const customAlert = document.getElementById('customAlert');
-        alertMessage.textContent = message;
-        customAlert.classList.remove('hidden');
-        }
+                saveToLocalStorage();
 
-        function addQuestion() {
-            let questionText = document.getElementById("questionText").value;
-            let answerElements = document.querySelectorAll("#answers .flex");
-            let answers = [];
-            let correctAnswer = "";
-            
-            answerElements.forEach((el, i) => {
-                let input = el.querySelector("input[type='text']");
-                let radio = el.querySelector("input[type='radio']");
-                answers.push(input.value);
-                if (radio.checked) correctAnswer = String.fromCharCode(65 + i);
-            });
-            
-            if (!questionText || answers.some(a => !a)) {
-                showAlert("Completare tutti i campi");
-                return;
-            }
-            
-            questions.push({ text: questionText, answers, correctAnswer });
-            updateQuestionList();
-            saveToCookies();
-            
-            
-            document.getElementById("questionText").value = "";
-            answerElements.forEach((el, i) => {
-                el.querySelector("input[type='text']").value = "";
-                el.querySelector("input[type='radio']").checked = i === 0;
-            });
-        }
+                // Resetta il modulo
+                document.getElementById("questionText").value = "";
+                answerElements.forEach((el, i) => {
+                    el.querySelector("input[type='text']").value = "";
+                    el.querySelector("input[type='radio']").checked = i === 0;
+                });
+            };
 
-    
-    document.getElementById('closeAlert').addEventListener('click', function() {
-        document.getElementById('customAlert').classList.add('hidden');
-    });
-        function deleteQuestion(index) {
-            questions.splice(index, 1);
-            updateQuestionList();
-            saveToCookies();
-        }
+            // Aggiorna la lista delle domande
+            const updateQuestionList = () => {
+                const list = document.getElementById("questionList");
+                list.innerHTML = questions.map((q, index) => `
+                    <li class="p-2 bg-gray-200 rounded flex justify-between items-center">
+                        ${sanitizeHTML(q.text).replace(/\n/g, "<br>")}
+                        <div class="flex space-x-1">
+                            <button onclick="editQuestion(${index})" class='px-2 py-1 bg-blue-500 text-white rounded flex items-center hover:bg-blue-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400'>
+                                <span class="material-icons">edit</span>
+                            </button>
+                            <button onclick="deleteQuestion(${index})" class='px-2 py-1 bg-red-500 text-white rounded flex items-center hover:bg-red-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-red-400'>
+                                <span class="material-icons">delete</span>
+                            </button>
+                        </div>
+                    </li>
+                `).join('');
+            };
 
-        function updateQuestionList() {
-            let list = document.getElementById("questionList");
-            list.innerHTML = "";
-            questions.forEach((q, index) => {
-                let li = document.createElement("li");
-                li.className = "p-2 bg-gray-200 rounded flex justify-between items-center";
-                li.innerHTML = `${q.text.replace(/\n/g, "<br>")} 
-                    <div class="flex space-x-1">
-                        <button onclick="editQuestion(${index})" class='px-2 py-1 bg-blue-500 text-white rounded flex items-center hover:bg-blue-600 hover:text-gray-200 transition duration-200'>
-                            <span class="material-icons">edit</span>
-                        </button>
-                        <button onclick="deleteQuestion(${index})" class='px-2 py-1 bg-red-500 text-white rounded flex items-center hover:bg-red-600 hover:text-gray-200 transition duration-200'>
-                            <span class="material-icons">delete</span>
-                        </button>
-                    </div>`;
-                list.appendChild(li);
-            });
-        }
-        
-        function editQuestion(index) {
-            let q = questions[index];
-            document.getElementById("questionText").value = q.text;
-            let answerElements = document.querySelectorAll("#answers .flex");
-            q.answers.forEach((answer, i) => {
-                let input = answerElements[i].querySelector("input[type='text']");
-                let radio = answerElements[i].querySelector("input[type='radio']");
-                input.value = answer;
-                radio.checked = q.correctAnswer === String.fromCharCode(65 + i);
-            });
-            questions.splice(index, 1);
-            updateQuestionList();
-            saveToCookies();
-        }
-        
-        function clearQuestions() {
-            questions = [];
-            updateQuestionList();
-            saveToCookies();
-        }
-        
-        function downloadAiken() {
-            let aikenText = questions.map(q => `${q.text}\n${q.answers.map((a, i) => `${String.fromCharCode(65 + i)}. ${a}`).join('\n')}\nANSWER: ${q.correctAnswer}`).join("\n\n");
-            let blob = new Blob([aikenText], { type: "text/plain" });
-            let a = document.createElement("a");
-            a.href = URL.createObjectURL(blob);
-            a.download = "Database AIKEN.txt";
-            a.click();
-        }
+            // Modifica una domanda esistente
+            const editQuestion = (index) => {
+                const q = questions[index];
+                document.getElementById("questionText").value = q.text;
+                const answerElements = document.querySelectorAll("#answers .flex");
+                q.answers.forEach((answer, i) => {
+                    const input = answerElements[i].querySelector("input[type='text']");
+                    const radio = answerElements[i].querySelector("input[type='radio']");
+                    input.value = answer;
+                    radio.checked = q.correctAnswer === String.fromCharCode(65 + i);
+                });
+                questions.splice(index, 1);
+                updateQuestionList();
+                saveToLocalStorage();
+            };
 
-        let actionToConfirm = null; 
+            // Elimina una domanda
+            const deleteQuestion = (index) => {
+                questions.splice(index, 1);
+                updateQuestionList();
+                saveToLocalStorage();
+            };
 
-        function showConfirmModal(message, action) {
-            const confirmMessage = document.getElementById("confirmMessage");
-            const confirmModal = document.getElementById("confirmModal");
-            
-            confirmMessage.textContent = message; 
-            actionToConfirm = action; 
-            confirmModal.classList.remove("hidden"); 
-        }
+            // Pulisce tutte le domande
+            const clearQuestions = () => {
+                questions = [];
+                updateQuestionList();
+                saveToLocalStorage();
+            };
 
-        document.getElementById("cancelConfirm").addEventListener("click", function() {
-            const confirmModal = document.getElementById("confirmModal");
-            confirmModal.classList.add("hidden"); 
-        });
+            // Scarica il database in formato AIKEN
+            const downloadAiken = () => {
+                const aikenText = questions.map(q => 
+                    `${q.text}\n${q.answers.map((a, i) => `${String.fromCharCode(65 + i)}. ${a}`).join('\n')}\nANSWER: ${q.correctAnswer}`
+                ).join("\n\n");
+                
+                const blob = new Blob([aikenText], { type: "text/plain" });
+                const a = document.createElement("a");
+                a.href = URL.createObjectURL(blob);
+                a.download = "Database_AIKEN.txt";
+                a.click();
+            };
 
-        document.getElementById("confirmAction").addEventListener("click", function() {
-            if (actionToConfirm) {
-                actionToConfirm();
-            }
-            const confirmModal = document.getElementById("confirmModal");
-            confirmModal.classList.add("hidden"); 
-        });
+            // Mostra il modal
+            const showModal = ({ type, message, onConfirm }) => {
+                const modal = document.getElementById("DynamicModal");
+                const modalTitle = document.getElementById("modalTitle");
+                const modalIcon = document.getElementById("modalIcon");
+                const modalHeader = document.getElementById("modalHeader");
+                const modalMessage = document.getElementById("modalMessage");
+                const modalButtons = document.getElementById("modalButtons");
 
-        
-        document.getElementById("clearCacheButton").addEventListener("click", function() {
-            showConfirmModal("Sei sicuro di voler cancellare il database?", clearQuestions);
-        });
+                // Reset del contenuto del modal
+                modalButtons.innerHTML = "";
+
+                switch(type) {
+                    case 'alert':
+                        modalHeader.textContent = "Attenzione";
+                        modalIcon.textContent = "warning";
+                        modalIcon.className = "material-icons mr-2 text-orange-400";
+                        modalMessage.textContent = message;
+
+                        const okButton = document.createElement("button");
+                        okButton.className = "flex items-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-green-400";
+                        okButton.innerHTML = `<span class="material-icons mr-2">check</span> OK`;
+                        okButton.addEventListener('click', hideModal);
+
+                        modalButtons.appendChild(okButton);
+                        break;
+                    case 'confirm':
+                        modalHeader.textContent = "Conferma";
+                        modalIcon.textContent = "warning";
+                        modalIcon.className = "material-icons mr-2 text-orange-400";
+                        modalMessage.textContent = message;
+
+                        const cancelButton = document.createElement("button");
+                        cancelButton.className = "flex items-center px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-gray-400";
+                        cancelButton.innerHTML = `<span class="material-icons mr-2">close</span> Annulla`;
+                        cancelButton.addEventListener('click', hideModal);
+
+                        const confirmButton = document.createElement("button");
+                        confirmButton.className = "flex items-center px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-red-400";
+                        confirmButton.innerHTML = `<span class="material-icons mr-2">delete</span> Cancella DB`;
+                        confirmButton.addEventListener('click', () => {
+                            if (onConfirm) onConfirm();
+                            hideModal();
+                        });
+
+                        modalButtons.appendChild(cancelButton);
+                        modalButtons.appendChild(confirmButton);
+                        break;
+                    case 'info':
+                        modalHeader.textContent = "Notifica";
+                        modalIcon.textContent = "info";
+                        modalIcon.className = "material-icons mr-2 text-blue-400";
+                        modalMessage.textContent = message;
+
+                        const infoOkButton = document.createElement("button");
+                        infoOkButton.className = "flex items-center px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400";
+                        infoOkButton.innerHTML = `<span class="material-icons mr-2">check</span> OK`;
+                        infoOkButton.addEventListener('click', hideModal);
+
+                        modalButtons.appendChild(infoOkButton);
+                        break;
+                    default:
+                        console.warn(`Tipo di modal non riconosciuto: ${type}`);
+                }
+
+                modal.classList.remove("hidden");
+                modal.setAttribute('aria-hidden', 'false');
+            };
+
+            // Nasconde il modal
+            const hideModal = () => {
+                const modal = document.getElementById("DynamicModal");
+                modal.classList.add("hidden");
+                modal.setAttribute('aria-hidden', 'true');
+            };
+
+            // Gestione delle interazioni fuori dal modal
+            const setupModalInteractions = () => {
+                const modal = document.getElementById('DynamicModal');
+                modal.addEventListener('click', (event) => {
+                    if (event.target === modal) {
+                        hideModal();
+                    }
+                });
+
+                // Accessibilità: Chiudi il modal con la tastiera
+                document.addEventListener('keydown', (event) => {
+                    if (event.key === 'Escape' && !modal.classList.contains('hidden')) {
+                        hideModal();
+                    }
+                });
+            };
+
+            // Sanitizza l'input per prevenire XSS
+            const sanitizeHTML = (str) => {
+                const temp = document.createElement('div');
+                temp.textContent = str;
+                return temp.innerHTML;
+            };
+
+            // Trigger del input file
+            const triggerFileInput = () => {
+                document.getElementById('importFileInput').click();
+            };
+
+            // Importa il database in formato AIKEN
+            const importAiken = (event) => {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const content = e.target.result;
+                    const parsedQuestions = parseAiken(content);
+                    if (parsedQuestions) {
+                        questions = questions.concat(parsedQuestions);
+                        updateQuestionList();
+                        saveToLocalStorage();
+                        showInfo("Importazione completata con successo!");
+                    }
+                };
+                reader.onerror = () => {
+                    showAlert("Errore nella lettura del file.");
+                };
+                reader.readAsText(file);
+                
+                // Resetta l'input file
+                event.target.value = '';
+            };
+
+            // Parsing del formato AIKEN
+            const parseAiken = (text) => {
+                const lines = text.split(/\r?\n/);
+                const questionsParsed = [];
+                let currentQuestion = null;
+                let currentAnswers = {};
+                let correctAnswer = null;
+
+                for (let line of lines) {
+                    line = line.trim();
+                    if (line === '') continue; // Salta le righe vuote
+
+                    // Controlla se la linea è una risposta
+                    const answerMatch = line.match(/^([A-D])\)\s+(.*)$/i) || line.match(/^([A-D])\.\s+(.*)$/i);
+                    if (answerMatch) {
+                        const letter = answerMatch[1].toUpperCase();
+                        const answerText = answerMatch[2];
+                        if (currentQuestion) {
+                            currentAnswers[letter] = answerText;
+                        } else {
+                            showAlert("Formato AIKEN errato: Risposta senza una domanda precedente.");
+                            return null;
+                        }
+                        continue;
+                    }
+
+                    // Controlla se la linea è la risposta corretta
+                    const answerLineMatch = line.match(/^ANSWER:\s+([A-D])$/i);
+                    if (answerLineMatch) {
+                        correctAnswer = answerLineMatch[1].toUpperCase();
+                        if (currentQuestion && Object.keys(currentAnswers).length >= 2) {
+                            // Aggiungi la domanda al database
+                            const answersArray = ['A', 'B', 'C', 'D'].map(letter => currentAnswers[letter] || '');
+                            questionsParsed.push({
+                                text: currentQuestion,
+                                answers: answersArray,
+                                correctAnswer: correctAnswer
+                            });
+                        } else {
+                            showAlert("Formato AIKEN errato: Mancano risposte valide o domanda.");
+                            return null;
+                        }
+                        // Reset per la prossima domanda
+                        currentQuestion = null;
+                        currentAnswers = {};
+                        correctAnswer = null;
+                        continue;
+                    }
+
+                    // Se non è una risposta o la risposta corretta, è il testo della domanda
+                    currentQuestion = line;
+                    currentAnswers = {};
+                    correctAnswer = null;
+                }
+
+                // Controlla se l'ultimo formato è stato completato
+                if (currentQuestion && Object.keys(currentAnswers).length >= 2 && correctAnswer) {
+                    const answersArray = ['A', 'B', 'C', 'D'].map(letter => currentAnswers[letter] || '');
+                    questionsParsed.push({
+                        text: currentQuestion,
+                        answers: answersArray,
+                        correctAnswer: correctAnswer
+                    });
+                } else if (currentQuestion && Object.keys(currentAnswers).length >= 2 && !correctAnswer) {
+                    showAlert("Formato AIKEN errato: Mancante risposta corretta per l'ultima domanda.");
+                    return null;
+                }
+
+                // Validazione finale
+                for (const q of questionsParsed) {
+                    if (!q.text || q.answers.some(a => a === '') || !q.correctAnswer) {
+                        showAlert("Errore nel formato del file AIKEN.");
+                        return null;
+                    }
+                }
+
+                return questionsParsed;
+            };
+
+            // Funzione per salvare le domande in localStorage
+            const saveToLocalStorage = () => {
+                try {
+                    const serializedData = JSON.stringify(questions);
+                    localStorage.setItem('aikenQuestions', serializedData);
+                    console.log("Domande salvate in localStorage.");
+                } catch (e) {
+                    console.error("Errore nel salvare i dati: ", e);
+                    showAlert("Errore nel salvare i dati. Prova a ridurre il numero di domande.");
+                }
+            };
+
+            // Funzione per caricare le domande da localStorage
+            const loadFromLocalStorage = () => {
+                const data = localStorage.getItem('aikenQuestions');
+                if (data) {
+                    try {
+                        questions = JSON.parse(data);
+                        console.log("Domande caricate da localStorage.");
+                        updateQuestionList();
+                    } catch (e) {
+                        console.error("Errore nel caricare i dati: ", e);
+                        showAlert("Errore nel caricare i dati salvati. I dati potrebbero essere corrotti.");
+                    }
+                }
+            };
+
+            // Inizializzazione
+            const init = () => {
+                loadFromLocalStorage();
+                setupModalInteractions();
+
+                // Event Listener per cancellare il DB
+                document.getElementById("clearCacheButton").addEventListener("click", () => {
+                    showModal({
+                        type: 'confirm',
+                        message: "Sei sicuro di voler cancellare il database?",
+                        onConfirm: clearQuestions
+                    });
+                });
+            };
+
+            // Esporre alcune funzioni globalmente se necessario
+            window.addQuestion = addQuestion;
+            window.editQuestion = editQuestion;
+            window.deleteQuestion = deleteQuestion;
+            window.downloadAiken = downloadAiken;
+            window.triggerFileInput = triggerFileInput;
+            window.importAiken = importAiken;
+            window.showInfo = showInfo;
+
+            // Avvia l'inizializzazione quando il DOM è pronto
+            document.addEventListener('DOMContentLoaded', init);
+        })();
     </script>
     <script src="modular/info_modal.js"></script>
 </body>
