@@ -17,6 +17,9 @@ fetch('modular/info_modal.html')
             modal.setAttribute('aria-hidden', 'true');
         };
 
+        // Apri il modal al caricamento della pagina
+        openModal();
+
         openModalButton.addEventListener('click', openModal);
         closeModalButton.addEventListener('click', closeModal);
 
